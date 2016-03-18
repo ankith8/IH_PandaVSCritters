@@ -29,6 +29,8 @@ public class PlayerHealth : MonoBehaviour,IDamagable
 		playerMovement = GetComponent <ThirdPersonCharacter> ();
         //playerShooting = GetComponentInChildren <PlayerShooting> ();
         currentHealth = startingHealth;
+		HealthSliderStatus(currentHealth);
+		//healthSlider.value = currentHealth;
 		playerInterction = GetComponent <PlayerInteraction> ();
     }
 
@@ -52,8 +54,8 @@ public class PlayerHealth : MonoBehaviour,IDamagable
         damaged = true;
 
         currentHealth -= amount;
-
-        healthSlider.value = currentHealth;
+		HealthSliderStatus(currentHealth);
+        //healthSlider.value = currentHealth;
 		AudioManager.instance.PlaySound("EnemyAttack",transform.position);
         //playerAudio.Play ();
 
@@ -75,7 +77,8 @@ public class PlayerHealth : MonoBehaviour,IDamagable
 			if(currentHealth > startingHealth)
 				currentHealth = startingHealth;
 		}
-		healthSlider.value = currentHealth;
+		//healthSlider.value = currentHealth;
+		HealthSliderStatus(currentHealth);
 	}
 
     void Death ()
@@ -92,5 +95,26 @@ public class PlayerHealth : MonoBehaviour,IDamagable
      	   playerMovement.enabled = false;
         //playerShooting.enabled = false;
     }
+
+
+	void HealthSliderStatus(int val)
+	{
+		healthSlider.value = val;
+
+		if(val > 69)
+		{
+			healthSlider.fillRect.GetComponent<Image>().color = Color.green;
+		}
+		else if(val > 39 && val < 70)
+		{
+			healthSlider.fillRect.GetComponent<Image>().color = Color.yellow;
+		}
+		else if(val < 40)
+		{
+			healthSlider.fillRect.GetComponent<Image>().color = Color.red;
+		}
+
+	}
+
 
 }

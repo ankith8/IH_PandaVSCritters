@@ -20,9 +20,9 @@ public class PlayerInteraction : MonoBehaviour {
 		hud.UpdateBombsText(bombCount);
 	}
 	
-	public void CollectBombs()
+	public void CollectBombs(int val)
 	{
-		bombCount+=4;
+		bombCount+= val;
 		hud.UpdateBombsText(bombCount);
 	}
 
@@ -116,7 +116,7 @@ public class PlayerInteraction : MonoBehaviour {
 
 			case "Bombs":
 				//Bombs bombs = other.GetComponent<Bombs>();
-				CollectBombs();
+				CollectBombs(other.transform.GetComponent<Bombs>().bombCount);
 				Destroy(other.gameObject);
 				AudioManager.instance.PlaySound("BombsCollect",transform.position);
 				break;
